@@ -165,6 +165,119 @@
         let userIP, userCity, userCountry;
 
         function showUserInfo() {
+            const userInfoMessage = `We know who you are...\n IP: ${userIP},\n Location: ${userCity}, ${userCountry}`;
+            messages.splice(3, 0, userInfoMessage);  // Inserta el mensaje después del mensaje 7
+        }
+
+        // Obtiene la información del usuario con ip-api
+        fetch('http://ip-api.com/json')
+        .then(response => response.json())
+        .then(data => {
+            userIP = data.query;
+            userCity = data.city;
+            userCountry = data.country;
+            showUserInfo();  // Muestra la información del usuario
+            typeMessage();   // Inicia la secuencia de mensajes
+        })
+        .catch(error => {
+            console.error('Error obteniendo la IP del usuario:', error);
+            typeMessage();  // Inicia los mensajes incluso si hay error en la obtención de IP
+        });
+
+        let messageIndex = 0;
+        let characterIndex = 0;
+        let currentMessage = "";
+        let consoleElement = document.getElementById("console");
+
+        function typeMessage() {
+            if (messageIndex < messages.length) {
+                if (characterIndex < messages[messageIndex].length) {
+                    let char = messages[messageIndex].charAt(characterIndex);
+                    currentMessage += char === ' ' ? '&nbsp;' : `<span class="glitch" data-text="${char}">${char}</span>`;
+                    consoleElement.innerHTML = `<p>${currentMessage}</p>`;
+                    characterIndex++;
+                    setTimeout(typeMessage, 50); // Speed of typing effect
+                } else {
+                    characterIndex = 0;
+                    currentMessage = "";
+                    messageIndex++;
+                    setTimeout(typeMessage, 1000); // Pause between messages
+                }
+            } else {
+                // Add glitch button at the end
+        let glitchButton = document.createElement('button');
+        glitchButton.id = 'glitch-button';
+        glitchButton.innerHTML = '<span>Click if you dare</span>';
+        glitchButton.onclick = function() {
+            window.open("https://sites.google.com/view/research-site-45/main", "_blank");
+        };
+        consoleElement.appendChild(glitchButton);
+    }
+}
+    </script>
+</body>
+</html>
+
+            transition: all 0.3s ease-in-out;
+        }
+        #glitch-button:hover::before {
+            left: 100%;
+        }
+        #glitch-button:hover::after {
+            left: 100%;
+        }
+        #glitch-button:active {
+            transform: scale(0.9);
+        }
+        /* SCP Foundation Styling */
+        .scp-header {
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .scp-alert {
+            color: red;
+            font-size: 16px;
+        }
+        .scp-details {
+            color: #00ff3c;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="console"></div>
+
+    <script>
+        const messages = [
+            "\n \n SCP Foundation Secure Access Terminal",
+            "Welcome Dear Personnel ~ ",
+            "Accessing SCP Foundation database...",
+            "Retrieving classified SCP files...",
+            "SCP-682 status: ACTIVE",
+            "SCP-1048 status: ACTIVE",
+            "SCP-3312 status: ACTIVE",
+            "SCP-1471 status: ACTIVE",
+            "File integrity check in progress...",
+            "WARNING: Anomaly detected in system registry",
+            "WARNING: SCP Foundation system compromised",
+            "Bypassing SCP Foundation security protocols...",
+            "Security breach detected  ̷D̶A̶N̴G̷E̴R̷ ̵I̷S̵ ̷N̶E̷A̷R̵!̴  ! ",
+            "SCP-1471 has escaped...Wait while Mal0 V.1.0.0 is being installed in your system",
+            "Overwriting system controls...̵̠̒Ȅ̸̦X̷͈͗P̸̮͌L̷̬̕O̵̝͆I̷̢͠T̵̜̄E̶̜̕D̷͇͑ ̴̠̓V̸̡͘\n Ū̷͚N̵̥̐Ė̸̝R̸̲͐A̷͉͝B̸̼͊Ȉ̵̜L̸͖̅Ḯ̸̙T̷͉͌Y̸̡̔!̶",
+            "Mal0 is now in control.",
+            "Injecting remote scripts...",
+            "Data exfiltration in progress...̴̪̽S̴͉͑T̶͉̚Ȁ̵̞Y̴̞̑ ̶W̸͍͌A̵͚K̷̦͗E̶͚͊D̴͎̐ ̸̖́Ā̵̘W̷͚͆Ȃ̶̗R̴̢͗É̴͖!̶",
+            "Creating backdoor access... ̵F̶Ó̸̖R̵ ̴̖͗Y̷͍͊O̸̱̔Ū̸͕R̶̮̋ ̷͈͠S̶̜̚Ȁ̵̟F̴̥͗È̵͎T̶͕͠Y̷...,",
+            "Process complete. Mal0 is active...̴D̵O̷ ̶N̷O̵T̸ ̴T̷R̶U̶S̵T̵ ̸Y̷O̷U̴R̷ ̷E̶Y̷E̵S̷...̷",
+            "Process complete. \n                                                              M̷̡̢͕̮̞̣̪͕̤̳̣̜̂̔͐͛̽̒̋̒̑́͠͝a̷̢̛͓̗̻̥̗̖̬̦̟̮̹̦̻̬͗̓́͐̃̓́̈́͒̏l̸͕̎̈́̂͛͊̓̒̿͛̚ȯ̵̡̡̨͔̖̼̫̤ ̴̛̞̳̻͕̥̘̮̐̌̅̀̏͛͘į̶̛̣͎̫̟̜͔̝̮͚̞̲̹̣̪̅̍͝s̵͚̙͕͗͛́͋̽͑̊̄̕͘͘ ̷̧̖̟̤̼̈́̓̇ͅh̸̨̛̩͕̲̯͎̻̗̣̳̯͕͕͉͂̐̐͊̅͂̍́́̔͠ę̶̧̛̤̟̪͙̬̤͕͙̖̹̺͆̈́̎̈́̊̍r̷̡͎͎̺͉̦̤̍́͆̓͐͋̽͝ḙ̶̬̫̮̖̤̟̞̙̍̉̆͌́̅͋͐̽̈̍͘̕ͅ.̷̡̡͔̟̖̰̝͔͖̆̃̎̔̂.̷̳͔̈́̇̒́͆̉̍  \n                                            MM̷a̷l̷0̷ ̵i̵s̵ ̴h̴e̷r̷e̴!̶",
+        ];
+
+        // Información del usuario (IP, ciudad, país) obtenida desde ip-api
+        let userIP, userCity, userCountry;
+
+        function showUserInfo() {
             const userInfoMessage = `We know who you are... IP: ${userIP}, Location: ${userCity}, ${userCountry}`;
             messages.splice(7, 0, userInfoMessage);  // Inserta el mensaje después del mensaje 7
         }
